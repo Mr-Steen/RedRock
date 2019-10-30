@@ -1,0 +1,36 @@
+//使用os.Create函数，在项目目录下创建一个“proverb.txt"文件
+//使用file.Write将don't communicate by sharing memory share memory by communicating",写入"proverb.txt"中。
+//c.使用file.Read函数读取"proverb.txt"的内容，并打印到控制台
+//start
+package main
+
+import (
+        "fmt"
+)
+import "os"
+func main(){
+        //创建文件
+        file,err:=os.Create("C:\\Users\\Lenovo\\Desktop\\proverb.txt")
+        if err!=nil {
+                fmt.Printf("文件创建失败")
+        }
+        defer file.Close()
+        //file,_ = os.Open("C:\\Users\\Lenovo\\Desktop\\proverb.txt")
+        //fmt.Println(file,err)
+        //fmt.Printf("%T",file)//file的指针
+        //if err!=nil{
+        //      fmt.Printf("文件打开失败")
+        //      os.Exit(1)
+        //}
+        file.WriteString("don't communicate by sharing memory share memory by communicating")//Write_____后默认为byte型
+        c:=make([]byte,2)
+        var ch int
+        for{
+                ch,_ = file.Read(c)
+                if ch==0{
+                        break
+                }
+                //fmt.Println(string(c[:ch]))
+                os.Stdout.Write(c[:ch])
+        }
+}
